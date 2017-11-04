@@ -1,0 +1,8 @@
+.idea/
+build/
+node_modules/
+public/
+src/
+test/
+*.log
+*.asar
