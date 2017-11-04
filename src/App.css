@@ -1,0 +1,49 @@
+body {
+  background-color: #ef9a9a;
+  font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 80px;
+}
+
+.App-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.App-content {
+  font-size: large;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.App-dropZone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  margin: 20px 0;
+  width: 50%;
+  height: 300px;
+  background-color: #ffffff;
+
+  /*border: 4px dotted gray;*/
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
