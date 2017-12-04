@@ -1,5 +1,5 @@
 {
-  "name": "electron-with-create-react-app",
+  "name": "zippy",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -15,6 +15,7 @@
     "install": "^0.10.1",
     "jszip": "^3.1.4",
     "lint-staged": "^4.3.0",
+    "lodash": "^4.17.4",
     "materialize-css": "^0.100.2",
     "npm": "^5.4.2",
     "prettier": "^1.7.4",

@@ -8,22 +8,15 @@ export const addFile = file => {
   };
 };
 
-export const compressFiles = files => {
+export const clear = () => {
   return {
-    type: 'COMPRESS_FILES',
-    files
+    type: 'CLEAR_FILES'
   };
 };
 
-export const unCompressFiles = files => {
+export const removeFile = id => {
   return {
-    type: 'UNCOMPRESS_FILES',
-    files
-  };
-};
-
-export const removeFile = filter => {
-  return {
-    type: 'REMOVE_FILE'
+    type: 'REMOVE_FILE',
+    id
   };
 };

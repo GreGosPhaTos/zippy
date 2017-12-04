@@ -11,8 +11,14 @@ const files = (state = [], action) => {
           isCompressed: isCompressedFile(action.file.name)
         })
       ];
+      break;
     case 'REMOVE_FILE':
       return state.filter(({ id }) => id !== action.id);
+      break;
+    case 'CLEAR_FILES':
+      return [];
+
+      break;
     default:
       return state;
   }

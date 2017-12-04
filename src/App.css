@@ -26,6 +26,10 @@ body {
   align-items: center;
 }
 
+.App-content form {
+  width: 100%;
+}
+
 .App-dropZone {
   display: flex;
   justify-content: center;

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { addFile } from './actions/index';
 import './App.css';
 import 'materialize-css/dist/css/materialize.min.css';
+import 'materialize-css/dist/js/materialize';
 
 const onDrop = (dispatch, acceptedFiles, rejectedFiles) => {
   acceptedFiles.forEach(file => {
@@ -25,8 +26,8 @@ const App = ({ dispatch }) => (
       >
         <span className="flow-text">Drop a file, or click to upload.</span>
       </Dropzone>
+      <FileList />
     </div>
-    <FileList />
   </main>
 );
 
