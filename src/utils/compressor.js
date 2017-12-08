@@ -1,15 +1,16 @@
 import { Config } from '../../config';
+import { hasExtension } from './file-utils';
 
 const JSZip = require('jszip');
-const zip = new JSZip();
+const jsZip = new JSZip();
 
 exports.zip = files => {
   debugger;
-  const archive = zip.folder(Config.compression.zip.defaultFolderName);
+  // const archive = jsZip.folder(Config.compression.zip.defaultFolderName);
   files.forEach(file => {
-    archive.file(file.name, file);
+    jsZip.file(file.name, file);
   });
-  return zip.generateAsync({
+  return jsZip.generateAsync({
     type: 'blob',
     compression: 'DEFLATE',
     compressionOptions: Config.compression.zip.compressionOptions
@@ -22,8 +23,20 @@ exports.unZip = compressedFile => {
     reader.onload = () => {
       const fileAsBinaryString = reader.result;
       // do whatever you want with the file content
-      zip.loadAsync(fileAsBinaryString).then(zip => {
-        resolve(zip);
+      jsZip.loadAsync(fileAsBinaryString).then(zip => {
+        const promises = [];
+        Object.keys(zip.files)
+          .filter(filename => hasExtension(filename))
+          .forEach(filename => {
+            promises.push(
+              jsZip
+                .file(filename)
+                .async('string')
+                .then(content => ({ content, name: filename }))
+            );
+          });
+
+        Promise.all(promises).then(values => resolve(values));
       });
     };
 

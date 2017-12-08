@@ -5,7 +5,6 @@ import DownloadButton from './DownloadButton';
 import File from './File';
 import { clear } from '../actions/index';
 import { Compressor } from '../utils';
-import * as _ from 'lodash';
 
 const { dialog } = window.require('electron').remote;
 const fs = window.require('fs');
@@ -35,17 +34,8 @@ const genFile = (files, done) => {
 const decompress = files => {
   return Compressor.unZip(files[0]).then(uncompressed => {
     dialog.showSaveDialog(folderName => {
-      _.forEach(uncompressed.files, file => {
-        fs.writeFile(`${folderName}/${file.name}`, err => {
-          // => [Error: EISDIR: illegal operation on a directory, open <directory>]
-          if (err) {
-            alert('An error ocurred creating the file ' + err.message);
-            console.log(folderName, err);
-          }
-
-          console.log(file);
-          alert(file.name + ' has been succesfully saved');
-        });
+      uncompressed.forEach(file => {
+        fs.writeFileSync(`${folderName}/${file.name}`, file.content);
       });
     });
   });
