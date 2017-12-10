@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import DownloadButton from './DownloadButton';
 import File from './File';
+import DownloadButton from './DownloadButton';
 import { clear } from '../actions/index';
 import { Compressor } from '../utils';
+import { extractExtension } from '../utils/file-utils';
 
 const { dialog } = window.require('electron').remote;
 const fs = window.require('fs');
@@ -33,9 +34,9 @@ const genFile = (files, done) => {
 
 const decompress = files => {
   return Compressor.unZip(files[0]).then(uncompressed => {
-    dialog.showSaveDialog(folderName => {
-      uncompressed.forEach(file => {
-        fs.writeFileSync(`${folderName}/${file.name}`, file.content);
+    uncompressed.forEach(file => {
+      dialog.showSaveDialog({ defaultPath: file.name }, newFileName => {
+        fs.writeFileSync(newFileName, file.content);
       });
     });
   });

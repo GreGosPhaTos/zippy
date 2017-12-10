@@ -22,7 +22,6 @@ exports.unZip = compressedFile => {
     const reader = new FileReader();
     reader.onload = () => {
       const fileAsBinaryString = reader.result;
-      // do whatever you want with the file content
       jsZip.loadAsync(fileAsBinaryString).then(zip => {
         const promises = [];
         Object.keys(zip.files)
@@ -31,7 +30,7 @@ exports.unZip = compressedFile => {
             promises.push(
               jsZip
                 .file(filename)
-                .async('string')
+                .async('uint8array')
                 .then(content => ({ content, name: filename }))
             );
           });
