@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import File from './File';
 import DownloadButton from './DownloadButton';
+import Button from './Button';
 import { clear } from '../actions/index';
 import { Compressor } from '../utils';
 import { extractExtension } from '../utils/file-utils';
@@ -32,13 +33,15 @@ const genFile = (files, done) => {
   });
 };
 
-const decompress = files => {
+const decompress = (files, dispatch) => {
   return Compressor.unZip(files[0]).then(uncompressed => {
     uncompressed.forEach(file => {
       dialog.showSaveDialog({ defaultPath: file.name }, newFileName => {
         fs.writeFileSync(newFileName, file.content);
       });
     });
+
+    dispatch(clear());
   });
 };
 
@@ -49,12 +52,11 @@ const generateButton = (files, dispatch) => {
 
   if (isCompressedAction(files)) {
     return (
-      <button
-        onClick={decompress.bind(null, files)}
+      <Button
         className="btn-floating btn-large waves-effect waves-light lighten-2"
-      >
-        UNZIP
-      </button>
+        onClick={decompress.bind(null, files, dispatch)}
+        title="UNZIP"
+      />
     );
   }
 

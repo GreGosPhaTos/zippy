@@ -17,7 +17,6 @@ const files = (state = [], action) => {
       break;
     case 'CLEAR_FILES':
       return [];
-
       break;
     default:
       return state;
